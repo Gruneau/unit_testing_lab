@@ -23,7 +23,7 @@ public class ConverterService {
      * @return temperature list in celsius.
      */
 
-    public List<Double> convertToFahrenheit(List<Double> listOfFahrenheitTemps) {
+    public List<Double> convertToCelsius(List<Double> listOfFahrenheitTemps) {
         return listOfFahrenheitTemps.stream()
                 .map(temperatureUtil::toCelsius)
                 .collect(Collectors.toList());
