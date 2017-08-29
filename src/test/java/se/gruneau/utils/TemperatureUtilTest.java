@@ -25,4 +25,9 @@ public class TemperatureUtilTest {
         assertEquals(-27.90555555555556, result, 0);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testToCelsiusShouldThrowNPE() throws Exception {
+        //Act
+        temperatureUtil.toCelsius(null);
+    }
 }
