@@ -1,12 +1,13 @@
 package se.gruneau.services;
 
-import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import se.gruneau.utils.TemperatureUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -39,7 +40,30 @@ public class ConverterServiceTest {
         List<Double> results = converterService.convertToCelsius(fahrenheit);
 
         //Assert
-        Assert.assertEquals(3, results.size());
+        assertEquals(3, results.size());
+    }
+
+    @Test
+    public void testConvertToCelsiusControlArgs() throws Exception {
+
+        //Arrange
+        List<Double> fahrenheit = new ArrayList<>();
+        fahrenheit.add(12.0);
+        fahrenheit.add(-25.12);
+        fahrenheit.add(0.0);
+
+        //The captor is capturing all values that are sent in, here we don't test the converter
+        //but actually check that the arguments passed in are passed in the same order and are equal values.
+        ArgumentCaptor<Double> captor = ArgumentCaptor.forClass(Double.class);
+        when(temperatureUtil.toCelsius(captor.capture())).thenReturn(any(Double.class));
+
+        //Act
+        converterService.convertToCelsius(fahrenheit);
+
+        //Assert
+        assertEquals(12.0, captor.getAllValues().get(0), 0);
+        assertEquals(-25.12, captor.getAllValues().get(1), 0);
+        assertEquals(0.0, captor.getAllValues().get(2), 0);
     }
 
 }
