@@ -10,7 +10,11 @@ import java.util.stream.Collectors;
  */
 public class ConverterService {
 
-    private final TemperatureUtil temperatureUtil = new TemperatureUtil();
+    private final TemperatureUtil temperatureUtil;
+
+    public ConverterService(TemperatureUtil temperatureUtil) {
+        this.temperatureUtil = temperatureUtil;
+    }
 
     /**
      * Takes a list of temperatures in fahrenheit and outputs a list in the same order
