@@ -1,5 +1,6 @@
 package se.gruneau.services;
 
+import se.gruneau.enums.UnitType;
 import se.gruneau.utils.TemperatureUtil;
 
 import java.util.List;
@@ -16,6 +17,20 @@ public class ConverterService {
         this.temperatureUtil = temperatureUtil;
     }
 
+    public <T> List<T> convert(List<T> any, UnitType type) {
+        switch (type) {
+            case CELSIUS:
+                return (List<T>) convertToCelsius((List<Double>) any);
+            case FAHRENHEIT:
+                break;
+            case FEET:
+                break;
+            case METER:
+                break;
+        }
+        return null;
+    }
+
     /**
      * Takes a list of temperatures in fahrenheit and outputs a list in the same order
      * with the temperatures converted to celsius.
@@ -23,7 +38,7 @@ public class ConverterService {
      * @return temperature list in celsius.
      */
 
-    public List<Double> convertToCelsius(List<Double> listOfFahrenheitTemps) {
+    protected List<Double> convertToCelsius(List<Double> listOfFahrenheitTemps) {
         return listOfFahrenheitTemps.stream()
                 .map(temperatureUtil::toCelsius)
                 .collect(Collectors.toList());

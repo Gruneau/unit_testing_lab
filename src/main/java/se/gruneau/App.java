@@ -1,5 +1,6 @@
 package se.gruneau;
 
+import se.gruneau.enums.UnitType;
 import se.gruneau.services.ConverterService;
 import se.gruneau.utils.TemperatureUtil;
 
@@ -18,7 +19,7 @@ public class App {
         }
         System.out.println("Converting args to celsius!");
         final List<Double> fahrenheitList = Arrays.stream(args).map(Double::valueOf).collect(Collectors.toCollection(ArrayList::new));
-        final List<Double> celsiusResult = converterService.convertToCelsius(fahrenheitList);
+        final List<Double> celsiusResult = converterService.convert(fahrenheitList, UnitType.CELSIUS);
         System.out.println("Input:");
         System.out.println(fahrenheitList);
         System.out.println("Result:");
