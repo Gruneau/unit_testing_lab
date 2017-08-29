@@ -28,7 +28,12 @@ public class ConverterServiceTest {
         fahrenheit.add(12.0);
         fahrenheit.add(-25.12);
         fahrenheit.add(0.0);
-        when(temperatureUtil.toCelsius(any(Double.class))).thenReturn(12.0);
+
+        //Hint: At this point we can mock up the temperature util completely! (We already covered it in its own test class.)
+        //In larger and more complex projects, this can turn an insanely huge test redundant - stick to small and meaningful tests,
+        //Large complex overlapping tests are slower and also harder to understand and maintain.
+        //Try to mock away everything that is not relevant for the test.
+        when(temperatureUtil.toCelsius(any(Double.class))).thenReturn(any(Double.class));
 
         //Act
         List<Double> results = converterService.convertToCelsius(fahrenheit);
