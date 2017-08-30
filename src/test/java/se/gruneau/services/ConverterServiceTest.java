@@ -9,8 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by gruneau on 2017-08-29.
@@ -61,6 +60,7 @@ public class ConverterServiceTest {
         converterService.convertToCelsius(fahrenheit);
 
         //Assert
+        verify(temperatureUtil, times(3)).toCelsius(anyDouble());
         assertEquals(12.0, captor.getAllValues().get(0), 0);
         assertEquals(-25.12, captor.getAllValues().get(1), 0);
         assertEquals(0.0, captor.getAllValues().get(2), 0);
