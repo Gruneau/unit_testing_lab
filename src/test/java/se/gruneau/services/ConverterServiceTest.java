@@ -15,7 +15,7 @@ public class ConverterServiceTest {
 
     private final TemperatureConverter temperatureConverter = mock(TemperatureConverter.class);
 
-    private final ConverterService service = new ConverterService(temperatureConverter);
+    private final Converter service = new Converter(temperatureConverter);
 
     @Before
     public void setUp() throws Exception {

@@ -1,9 +1,11 @@
 package se.gruneau;
 
-import se.gruneau.services.ConverterService;
-import se.gruneau.utils.TemperatureConverter;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import se.gruneau.interfaces.ConverterService;
+import se.gruneau.modules.ConverterModule;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,24 +15,16 @@ import java.util.List;
 public class App
 {
 
-    private static final ConverterService converterService =
-            new ConverterService(new TemperatureConverter());
-
     public static void main( String[] args )
     {
-        List<Double> input = new ArrayList<>();
-        for (int i = 0; i < args.length; i++) {
-            try {
-                Double d = Double.parseDouble(args[i]);
-                input.add(d);
-            } catch (Exception e) {
-                e.printStackTrace();
-                //ignore bad input
-            }
-        }
+        //Config guice
+        Injector injector = Guice.createInjector(new ConverterModule());
+        ConverterService service = injector.getInstance(ConverterService.class);
+        //Input
         System.out.println( "CONVERTING");
-        System.out.println(input);
-        List<Double> results = converterService.toCelsius(input);
+        List<Double> parsedInput = service.toDouble(Arrays.asList(args));
+        System.out.println(parsedInput);
+        List<Double> results = service.toCelsius(parsedInput);
         System.out.println(results);
 
     }
